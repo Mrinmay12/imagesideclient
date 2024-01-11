@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import apiUrl from '../ApiAxios';
 import InfiniteScroll from "react-infinite-scroll-component";
+import Imagebutton from './Imagebutton';
 const ImageGalleryPage = () => {
   const searchParams = new URLSearchParams(document.location.search)
 let category=searchParams.get('category')
@@ -20,10 +21,11 @@ console.log(post_title,category,"jfghfghg");
     setPage((prevPage) => prevPage + 1);
 
   };
-
+let reff= localStorage.getItem("reff")
+let location=localStorage.getItem("location")
   const fetchImages = async () => {
     try {
-      let res = await apiUrl.get(`/api/userpost/getallpost?page=${page}&limit=7&category=${category===null?"":category}&post_title=${post_title===null?"":post_title}`)
+      let res = await apiUrl.get(`/api/userpost/getallpost?page=${page}&limit=7&category=${category===null?"":category}&post_title=${post_title===null?"":post_title}&location=${location!==null?location:""}`)
       setImages((prevData) => [...images, ...res.data.posts])
       setIsLoading(res.data.posts)
     } catch (err) {
@@ -34,7 +36,7 @@ console.log(post_title,category,"jfghfghg");
 
   useEffect(() => {
     fetchImages();
-  }, [page]);
+  }, [page,reff]);
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const handleImageLoad = () => {
@@ -43,7 +45,7 @@ console.log(post_title,category,"jfghfghg");
   console.log(images, page, "hhh",imageLoaded);
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Image Gallery </h1>
+      <h1>Post Page </h1>
       
     
       <div style={{ textAlign: "center", display: "inline-block" }}>
@@ -63,7 +65,7 @@ console.log(post_title,category,"jfghfghg");
         >
           {images.length===0&&<div>No Data Found</div>}
           {images.map((item) => (
-            <Card style={{ width: '18rem', marginBottom: "12px" }}>
+            <Card style={{ width: '18rem', marginBottom: "12px" ,marginBottom:"41px"}}>
             
               {!imageLoaded &&(
                
@@ -71,7 +73,7 @@ console.log(post_title,category,"jfghfghg");
               
               )}
                 <Card.Img variant="top" src={`${process.env.REACT_APP_API_URL}/api/userpost/images/${item._id}`} style={{ backgroundColor: imageLoaded ? "gray" : "red" }}
-                onLoad={handleImageLoad} />
+                onLoad={handleImageLoad}  className='userimg'/>
               
               <Card.Body>
                 {/* <Card.Title>Card Title</Card.Title> */}
@@ -79,6 +81,7 @@ console.log(post_title,category,"jfghfghg");
                 <h5 class="card-title">{item.post_title}</h5>
                   
                 </Card.Text>
+                <Imagebutton id={item._id} Contact={item.Contactnumber}/>
                 {/* <Button variant="primary">Go somewhere</Button> */}
               </Card.Body>
             </Card>

@@ -4,15 +4,14 @@ import LocationDropdown from './LocationDropdown'; // Import your LocationCompon
 import PopupPage from './PopupPage';
 
 const Navbar = () => {
+
   return (
     <nav className="navbar">
       <div className="navbar-content">
-        <div className="left-component">
-          <LocationDropdown />
-        </div>
-        <div className="right-component">
-          <PopupPage />
-        </div>
+        <LocationDropdown />
+        
+         <PopupPage/>
+        
       </div>
     </nav>
   );

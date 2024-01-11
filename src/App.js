@@ -8,11 +8,12 @@ import ImageGalleryPage from './component/ImageGalleryPage'; // Import the Image
 // Import other pages
 import Home from './component/Home';
 import MainArea from './component/ImageGalleryPage';
+import Footer from './component/Footer';
 
 function App() {
   return (
     <div>
-      <Navbar />
+      
 
       {/* Your other components here */}
       {/* <LocationDropdown />
@@ -26,8 +27,10 @@ function App() {
         <Route path="/mainarea" element={<MainArea />} />
         <Route path="/gallery" element={<ImageGalleryPage />} /> {/* Add this line */}
       </Routes>
+      <Footer/>
     </div>
   );
 }
+
 
 export default App;
